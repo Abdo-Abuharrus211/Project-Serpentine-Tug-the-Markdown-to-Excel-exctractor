@@ -13,7 +13,6 @@ def extract_headings_and_content(markdown_file):
     current_heading = ""
     current_content = ""
     current_heading_type = 0  # Default heading type
-
     for line in lines:
         # Print the line for debugging
         print("Processing line:", line)
