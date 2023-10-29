@@ -32,3 +32,6 @@ and I took up the challenge as little fun project on the side.
 * A query regarding converting the PDF files to markdown files has been submitted, as they're far easier to parse through
     and yield consistent results thanks to Markdown's formatting.
 * If a clean 1:1 conversion is possible for such files, then that might be a better route to pursue. Awaiting confirmation...
+
+## Use instructions
+ _**To be updated once complete**_
