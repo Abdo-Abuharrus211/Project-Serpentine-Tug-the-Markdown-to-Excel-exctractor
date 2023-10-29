@@ -40,9 +40,9 @@ def extract_headings_and_content(markdown_file):
         content.append(current_content.strip())
 
     # Debugging output
-    print("Length of headings:", len(headings))
-    print("Length of heading_type:", len(heading_type))
-    print("Length of content:", len(content))
+    # print("Length of headings:", len(headings))
+    # print("Length of heading_type:", len(heading_type))
+    # print("Length of content:", len(content))
 
     return headings, heading_type, content
 
@@ -55,7 +55,7 @@ def write_to_excel(headings, heading_type, content, excel_path):
 
 
 def main():
-    markdown_file = 'Bob was here.md'  # Replace with the path to your Markdown file
+    markdown_file = 'fab conoslidated financial statement sample.md'  # Replace with the path to your Markdown file
     excel_path = 'MD Extraction file.xlsx'  # Replace with the desired output Excel file name
 
     headings, heading_type, content = extract_headings_and_content(markdown_file)
