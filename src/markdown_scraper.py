@@ -55,8 +55,8 @@ def write_to_excel(headings, heading_type, content, excel_path):
 
 
 def main():
-    markdown_file = 'fab conoslidated financial statement sample.md'  # Replace with the path to your Markdown file
-    excel_path = 'MD Extraction file.xlsx'  # Replace with the desired output Excel file name
+    markdown_file = '../markdown test samples/fab conoslidated financial statement sample.md'  # Replace with the path to your Markdown file
+    excel_path = '../MD Extraction file.xlsx'  # Replace with the desired output Excel file name
 
     headings, heading_type, content = extract_headings_and_content(markdown_file)
     write_to_excel(headings, heading_type, content, excel_path)

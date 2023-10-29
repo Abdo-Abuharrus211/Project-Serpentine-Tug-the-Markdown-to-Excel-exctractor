@@ -27,8 +27,8 @@ def write_to_excel(pdf_text, excel_path):
 # Main function
 def main():
     # Specify the path to the input PDF file and output Excel file
-    pdf_path = 'Bob was here.pdf'  # Replace 'input.pdf' with the path to your PDF file
-    excel_path = 'Extraction file.xlsx'  # Replace 'output.xlsx' with the desired output Excel file name
+    pdf_path = '../pdf test samples/Bob was here.pdf'  # Replace 'input.pdf' with the path to your PDF file
+    excel_path = '../Extraction file.xlsx'  # Replace 'output.xlsx' with the desired output Excel file name
 
     # Extract text from PDF
     pdf_text = extract_text_from_pdf(pdf_path)

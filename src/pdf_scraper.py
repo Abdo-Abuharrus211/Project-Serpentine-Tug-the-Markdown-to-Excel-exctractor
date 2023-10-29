@@ -40,8 +40,8 @@ def write_to_excel(headers, content, excel_path):
 
 
 def main():
-    pdf_path = 'Bob was here.pdf'  # Replace with the path to your PDF file
-    excel_path = 'Extraction file.xlsx'  # Replace with the desired output Excel file name
+    pdf_path = '../pdf test samples/Bob was here.pdf'  # Replace with the path to your PDF file
+    excel_path = '../Extraction file.xlsx'  # Replace with the desired output Excel file name
 
     headers, content = extract_headers_and_content(pdf_path)
     write_to_excel(headers, content, excel_path)
