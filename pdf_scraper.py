@@ -15,20 +15,20 @@ def extract_headers_and_content(pdf_path):
             page = pdf_reader.pages[page_num]
             page_text = page.extract_text()
 
-            # Extract the header (assuming it's the first line on the page)
-            header_match = re.match(r'^(.*)\n', page_text)
+            # Try to extract the header (first line on the page)
+            header_match = re.match(r'^(.*?)(?=\n|$)', page_text)
             if header_match:
                 section_title = header_match.group(1)
             else:
                 section_title = ""
 
-            # Extract the content (excluding the header)
+            # Extract the content (including leading and trailing whitespace)
             section_text = page_text[len(section_title):]
 
             headers.append(section_title)
             content.append(section_text)
 
-    return headers, content
+        return headers, content
 
 
 def write_to_excel(headers, content, excel_path):
@@ -36,6 +36,7 @@ def write_to_excel(headers, content, excel_path):
     df = pd.DataFrame({'Headers': headers, 'Content': content})
     # Write the DataFrame to an Excel file
     df.to_excel(excel_path, index=False)
+    print("Successfully written to Excel spreadsheet")
 
 
 def main():
