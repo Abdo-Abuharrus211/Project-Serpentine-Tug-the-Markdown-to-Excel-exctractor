@@ -2,11 +2,18 @@ import re
 import pandas as pd
 import os
 
-# Define the maximum Excel cell string limit
-MAX_CELL_STRING_LENGTH = 32767  # Adjust this value as needed
+MAX_CELL_STRING_LENGTH = 32767
+"""
+Extract headings and content from a Markdown file and write to an Excel file.
+
+:param markdown_file: a string
+:precondition: markdown_file is a valid path to a Markdown file
+:postcondition: extract the headings and content from the Markdown file
+:return: a tuple containing a list of headings, a list of heading types, and a list of content
+"""
+
 
 def extract_headings_and_content(markdown_file):
-    # Try to open file, if it doesn't exist raise an error
     try:
         if os.path.isfile(markdown_file):
             print(f"The file '{markdown_file}' exists.")
@@ -40,7 +47,6 @@ def extract_headings_and_content(markdown_file):
                 current_heading_type = len(match.group(1))
                 current_content = ""
             else:
-                # Append the line to the current content
                 current_content += line
 
         # Add the last heading and content
@@ -50,6 +56,23 @@ def extract_headings_and_content(markdown_file):
             content.append(current_content.strip())
 
         return headings, heading_type, content
+
+
+"""
+Write the headings and content to an Excel file.
+
+:param headings: a list of strings
+:param heading_type: a list of integers
+:param content: a list of strings
+:param excel_path: a string
+:precondition: headings, heading_type, and content are the same length
+:precondition: excel_path is a valid path to an Excel file
+:postcondition: write the headings and content to the Excel file
+:return: None
+
+:raises FileNotFoundError: if the Excel file does not exist
+:raises Exception: if there is an error while writing to the Excel file
+"""
 
 
 def write_to_excel(headings, heading_type, content, excel_path):
@@ -62,7 +85,6 @@ def write_to_excel(headings, heading_type, content, excel_path):
             # Create a new Excel file if it doesn't exist
             df = pd.DataFrame(columns=['Headers', 'Heading Type', 'Content'])
 
-        # Initialize variables to keep track of remaining content
         remaining_content = ""
         current_heading = None
 
@@ -103,7 +125,6 @@ def main():
     markdown_file = '../markdown test samples/fab consolidated financial statement sample.md'
     # Replace with the desired output Excel file name
     excel_path = '../MD Extraction file.xlsx'
-
     try:
         headings, heading_type, content = extract_headings_and_content(markdown_file)
     except FileNotFoundError as e:
