@@ -2,6 +2,8 @@ import re
 import pandas as pd
 import os
 
+# Define the maximum Excel cell string limit
+MAX_CELL_STRING_LENGTH = 32767  # Adjust this value as needed
 
 def extract_headings_and_content(markdown_file):
     # Try to open file, if it doesn't exist raise an error
@@ -60,11 +62,34 @@ def write_to_excel(headings, heading_type, content, excel_path):
             # Create a new Excel file if it doesn't exist
             df = pd.DataFrame(columns=['Headers', 'Heading Type', 'Content'])
 
-        # Create a new DataFrame with the data to write
-        new_data = pd.DataFrame({'Headers': headings, 'Heading Type': heading_type, 'Content': content})
+        # Initialize variables to keep track of remaining content
+        remaining_content = ""
+        current_heading = None
 
-        # Concatenate the existing DataFrame with the new data
-        df = pd.concat([df, new_data], ignore_index=True)
+        for heading, h_type, section_content in zip(headings, heading_type, content):
+            if current_heading != heading:
+                # If the heading has changed, clear the remaining content
+                remaining_content = ""
+                current_heading = heading
+
+            # Check if the content can fit within a single cell
+            if len(section_content) <= MAX_CELL_STRING_LENGTH:
+                df = df.append({'Headers': heading, 'Heading Type': h_type, 'Content': section_content},
+                               ignore_index=True)
+            else:
+                # Split the content into multiple cells
+                while section_content:
+                    split_point = min(MAX_CELL_STRING_LENGTH, len(section_content))
+                    cell_content = section_content[:split_point]
+                    section_content = section_content[split_point:]
+                    df = df.append({'Headers': heading, 'Heading Type': h_type, 'Content': cell_content},
+                                   ignore_index=True)
+
+            # Add any remaining content to the next cell
+            if remaining_content:
+                cell_content = remaining_content
+                remaining_content = ""
+                df = df.append({'Headers': heading, 'Heading Type': h_type, 'Content': cell_content}, ignore_index=True)
 
         # Write the DataFrame to the Excel file
         df.to_excel(excel_path, index=False)
