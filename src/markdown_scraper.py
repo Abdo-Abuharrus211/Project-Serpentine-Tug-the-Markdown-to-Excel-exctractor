@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+import openpyxl
 import os
 
 MAX_CELL_STRING_LENGTH = 32767
@@ -87,6 +88,7 @@ def write_to_excel(headings, heading_type, content, excel_path):
 
         remaining_content = ""
         current_heading = None
+        data_to_append = []
 
         for heading, h_type, section_content in zip(headings, heading_type, content):
             if current_heading != heading:
@@ -96,22 +98,26 @@ def write_to_excel(headings, heading_type, content, excel_path):
 
             # Check if the content can fit within a single cell
             if len(section_content) <= MAX_CELL_STRING_LENGTH:
-                df = df.append({'Headers': heading, 'Heading Type': h_type, 'Content': section_content},
-                               ignore_index=True)
+                data_to_append.append({'Headers': heading, 'Heading Type': h_type, 'Content': section_content})
             else:
                 # Split the content into multiple cells
                 while section_content:
                     split_point = min(MAX_CELL_STRING_LENGTH, len(section_content))
                     cell_content = section_content[:split_point]
                     section_content = section_content[split_point:]
-                    df = df.append({'Headers': heading, 'Heading Type': h_type, 'Content': cell_content},
-                                   ignore_index=True)
+                    data_to_append.append({'Headers': heading, 'Heading Type': h_type, 'Content': cell_content})
 
             # Add any remaining content to the next cell
             if remaining_content:
                 cell_content = remaining_content
                 remaining_content = ""
-                df = df.append({'Headers': heading, 'Heading Type': h_type, 'Content': cell_content}, ignore_index=True)
+                data_to_append.append({'Headers': heading, 'Heading Type': h_type, 'Content': cell_content})
+
+        # Create a new DataFrame with the data to append
+        new_data = pd.DataFrame(data_to_append)
+
+        # Concatenate the existing DataFrame with the new data
+        df = pd.concat([df, new_data], ignore_index=True)
 
         # Write the DataFrame to the Excel file
         df.to_excel(excel_path, index=False)
