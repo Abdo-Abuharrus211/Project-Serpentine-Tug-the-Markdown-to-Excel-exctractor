@@ -127,16 +127,17 @@ def write_to_excel(headings, heading_type, content, excel_path):
 
 
 def main():
-    # Replace with the path to your Markdown file
-    markdown_file = '../markdown test samples/fab consolidated financial statement sample.md'
+    markdown_file = input("Enter the path to the Markdown file: ");
     # Replace with the desired output Excel file name
-    excel_path = '../MD Extraction file.xlsx'
+    excel_path = input("Please enter the path to the Excel file you want to write to:")
     try:
         headings, heading_type, content = extract_headings_and_content(markdown_file)
     except FileNotFoundError as e:
         print("File error:", e)
     else:
         write_to_excel(headings, heading_type, content, excel_path)
+    finally:
+        print("Done")
 
 
 if __name__ == "__main__":

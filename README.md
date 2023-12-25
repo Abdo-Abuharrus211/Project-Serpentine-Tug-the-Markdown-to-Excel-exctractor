@@ -1,6 +1,6 @@
 # Project Title: Serpentine Tug
 
-## Purpose: Extracting Heading and Content extraction from PDF or Markdown files.
+## Objective: Extract Heading and content from Markdown files.
 
 ## Author: Abdulqadir Abuharrus <br> Date: 29/10/2023 <br>Version: 1.2
 
@@ -38,6 +38,13 @@ and I took up the challenge as little fun project on the side.
   and yield consistent results thanks to Markdown's formatting.
 * If a clean 1:1 conversion is possible for such files, then that might be a better route to pursue. Awaiting
   confirmation...
+* After getting the confirmation that the PDF files can be converted to Markdown files, I've decided to pursue that
+  route instead as it's far easier to parse through and yields consistent results.
+* The PDF files can be reliably and securely converted to Markdown files using a variety of tools on the web.
+* With the files converted, the script parses through the Markdown files and extracts the data as intended.
+* However, the script is unable to extract data from graphs, tables, and illustrations, and thus the data is lost.
+* The script is able to extract data from the Markdown files and insert it into an Excel spreadsheet as intended.
+* I will attempt to find a solution to the issue of overlooked data in graphs, tables, and illustrations...
 
 ## Use instructions
 
